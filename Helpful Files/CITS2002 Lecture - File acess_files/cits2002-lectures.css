@@ -1,0 +1,136 @@
+h3 {
+    font-size:		1.2em;
+    color:		#1a65a3;
+    margin-bottom:	0.6em;
+}
+
+table.thin {
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-collapse: collapse;
+}
+
+th.thin {
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    background-color: #cccccc;
+    border-color: gray;
+    padding: 4px;
+}
+
+td.thin {
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: gray;
+    padding: 4px;
+    text-align: left;
+}
+
+.thincenter {
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: gray;
+    padding: 4px;
+    text-align: center;
+}
+
+dt {
+    font-weight:	bold;
+}
+
+dd {
+    margin-left:	2em;
+}
+
+.code {
+    font-family:        monospace;
+    font-size:          1.1em;
+    border:             1px solid gray;
+    background-color:   #e2e2e2;
+    padding:            0.7em;
+    white-space:        nowrap;
+}
+
+img.imgborder {
+    border:		1px solid gray;
+}
+
+ul#bullet {
+    list-style-image: url(images/bullet-link.gif);
+    margin: 0 9px 0 8px;
+}
+
+li {
+    margin: 0 0 4px 0;
+}
+
+#box {
+    padding-top: 1px;
+    border-top: 0px;
+    height: 64;
+    background: url(images/header-background-03.png) bottom center repeat-x #27348B;
+    border-bottom: 0px;
+}
+
+td#topmenu {
+    font-size:		80%;
+    color:		#757575;
+    padding-left:	16px;
+    vertical-align:	middle;
+    white-space:	nowrap;
+}
+
+a#topmenu {
+    color:		#757575;
+    visited:		#757575;
+    text-decoration:	none;
+}
+
+blockquote {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    width: 600px;
+    margin: 0.25em 0 0 2em;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+}
+
+blockquote:before {
+    display: block;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote cite {
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+ 
+blockquote cite:before {
+    content: "\2014 \2009";
+}
+
+.shell {
+    font-family:	monospace;
+    font-size:		1.1em;
+    margin-top:		-1.25em;
+    margin-left:	1em;
+    white-space:	pre;
+}
+
+.prompt {
+    font-family:	monospace;
+    font-weight:	bold;
+    font-size:		1.1em;
+    color:		blue;
+}
+
