@@ -15,6 +15,7 @@ void error_check(char filename) {
     exit(EXIT_FAILURE);
   }
 }
+
 void reading_Estfil(char estfile) {
   // TO DO
   char buffer[Estfilesize];
