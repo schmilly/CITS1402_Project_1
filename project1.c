@@ -10,11 +10,10 @@
 #define Crontablen 1000
 
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
-void error_check(char filename) {
+void error_check(char *file[]) {
   // opening file of name passed via parameter of filename
-  int file = open(filename, O_RDONLY);
-  if (file == -1) {
-    printf("Cannot open '%S'\n", filename);
+  if (file == NULL) {
+    printf("Cannot open '%S'\n", file);
     exit(EXIT_FAILURE);
   }
 }
@@ -27,14 +26,14 @@ void which_month(char month) {
 
 void reading_Estfil(char estfile) {
   // TODO
-  char buffer[Estfilesize]
+  printf("Reading estfil...");
 
 	
 }
 //just did some file error and opening stuff. converted it into an array of string
 void reading_CrONTABfile(char Crontab) {
   // TODO
-  char data[Crontabsize][Crontablen]
+  char data[Crontabsize][Crontablen];
 
   FILE *file;
 
@@ -43,7 +42,7 @@ void reading_CrONTABfile(char Crontab) {
   if (file == NULL)
   {
 	  printf("Error opening file.\n");
-	  return 1;
+	  exit(EXIT_FAILURE);
   }
 
   int line = 0;
@@ -54,9 +53,7 @@ void reading_CrONTABfile(char Crontab) {
   fclose(file);
 
   for (int i = 0; i < line; i++)
-	  printf("%s", data[i])
-
-  return 0;
+	  printf("%s", data[i]);
 }
 
 
@@ -69,7 +66,7 @@ void reading_CrONTABfile(char Crontab) {
 
 
 //*****MAIN FUNCTION V. IMPORTANT HOPEFLY THIS HELPS U FIND*****
-int main(int argcount, char *argvalue[]) {
+int main(int argcount, char **argvalue) {
   // defining parameters to pass to functions
   if (argcount > 3) {
     printf("Error, too many arguments");
@@ -79,10 +76,10 @@ int main(int argcount, char *argvalue[]) {
     printf("Error, not enough arguments");
     exit(EXIT_FAILURE);
   }
-
+  
+  FILE *f = fopen(argvalue[3], "r");
   char month = atof(argvalue[1]);
   char Crontab = atof(argvalue[2]);
-  char estfile = atof(argvalue[3]);
 
   error_check(Crontab);
   error_check(estfile);
