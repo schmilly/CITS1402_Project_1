@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ctype.h>
 
 // defining size of chrachter array for files
 #define Estfilesize 10000
@@ -22,9 +23,28 @@ void error_check(char *file[]) {
 // version for this stuff I rekon
 void which_month(char month) {
   // TODO
-  
-	int daysinmonth = 0;
+
 	int monthNum = 0;
+	int daysinmonth = 0;
+
+	if(isdigit(month)==TRUE){
+		monthNum = month;
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+			daysinmonth = 31;
+		}
+		else if(month == 2){
+			daysinmonth = 28;
+		}
+		else if(month == 4 || month == 6 || month == 9 || month == 11){
+			daysinmonth = 30:
+		}
+		else{
+			printf("Invalid month")
+		}
+	}
+
+
+	else{
 	switch (month) {
 		case "jan":
 			daysinmonth = 31;
@@ -74,6 +94,7 @@ void which_month(char month) {
 			daysinmonth = 31;
 			monthNum = 12;
 			break;
+	}
 
 
 
