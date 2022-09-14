@@ -22,7 +22,63 @@ void error_check(char *file[]) {
 // version for this stuff I rekon
 void which_month(char month) {
   // TODO
+  
+	int daysinmonth = 0;
+	int monthNum = 0;
+	switch (month) {
+		case "jan":
+			daysinmonth = 31;
+			monthNum = 1;
+			break;
+		case "feb":
+			daysinmonth = 28;
+			monthNum = 2;
+			break;
+		case "mar":
+			daysinmonth = 31;
+			monthNum = 3;
+			break;
+		case "apr":
+			daysinmonth = 30;
+			monthNum = 4;
+			break;
+		case "may":
+			daysinmonth = 31;
+			monthNum = 5;
+			break;
+		case "jun":
+			daysinmonth = 30;
+			monthNum = 6;
+			break;
+		case "jul":
+			daysinmonth = 31;
+			monthNum = 7;
+			break;
+		case "aug":
+			daysinmonth = 31;
+			monthNum = 8;
+			break;
+		case "sep":
+			daysinmonth = 30;
+			monthNum = 9;
+			break;
+		case "oct":
+			daysinmonth = 31;
+			monthNum = 10;
+			break;
+		case "nov":
+			daysinmonth = 30;
+			monthNum = 11;
+			break;
+		case "dec":
+			daysinmonth = 31;
+			monthNum = 12;
+			break;
+
+
+
 }
+
 
 void reading_Estfil(char estfile) {
   // TODO
