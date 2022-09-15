@@ -14,7 +14,7 @@
 #define Crontabsize 10000
 #define Crontablen 1000
 
-int main(int argcount, char** argvalue) {
+int main(int argcount, char argvalue[]) {
 
   // checking to see we have the correct number of arguments (debuggin bs)
   printf("argument count: %d\n", argcount); 
@@ -37,7 +37,7 @@ int main(int argcount, char** argvalue) {
 
 
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
-void error_check() {
+void error_check(char file) {
   // opening file of name passed via parameter of filename
   if (file == NULL) {
     printf("Cannot open '%S'\n", file);
