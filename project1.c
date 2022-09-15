@@ -27,7 +27,7 @@ void which_month(char month) {
 	int monthNum = 0;
 	int daysinmonth = 0;
 
-	if(isdigit(month)==TRUE){
+	if(isdigit(month)){ //the ==TRUE is uncesseary as program will evaluate isdigit to true regardless
 		monthNum = month;
 		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
 			daysinmonth = 31;
@@ -143,7 +143,7 @@ void reading_CrONTABfile(char Crontab) {
 
 
 //*****MAIN FUNCTION V. IMPORTANT HOPEFLY THIS HELPS U FIND*****
-int main(int argcount, char **argvalue) {
+int main(int argcount, char *argvalue[]) {
   // defining parameters to pass to functions
   if (argcount > 3) {
     printf("Error, too many arguments");
@@ -153,7 +153,7 @@ int main(int argcount, char **argvalue) {
     printf("Error, not enough arguments");
     exit(EXIT_FAILURE);
   }
-  
+  char 
   FILE *f = fopen(argvalue[3], "r");
   char month = atof(argvalue[1]);
   char Crontab = atof(argvalue[2]);
