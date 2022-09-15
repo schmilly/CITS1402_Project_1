@@ -106,9 +106,31 @@ void reading_Crontabfile(char Crontab) {
 
 //calcs and everything start here
 
+//HAS TO BE AN EASIER WAY THEN THIS? CAUSE ITS LIKE 64 IF STATEMENTS
+//btw the indexing reffers to like the min,hour,day
   for(int i = 0; i < line; i++){
 	  if(strstr(i, daily)){
-		  dailyCount++;
+		  if(i[6] == "*" || i[6] == monthNum){
+		  	if(i[0] == "*" && i[2] == "*" && i[4] == "*"){
+			  	dailyCount = 1440 * daysinmonth;
+		  	}
+		  	else if(i[0] != "*" && i[2] == "*" && i[4] == "*"){
+			  	dailyCount = 24 * daysinmonth;
+		  	}
+			else if(i[0] == "*" && i[2] != "*" && i[4] == "*"){
+				dailyCount = (24 - (i[2] + 1)) * daysinmonth;
+			}
+			else if(i[0] != "*" && i[2] != "*" && i[4] == "*"){
+				dailyCount = daysinmonth;
+			}
+			else if(i[0] != "*" && i[2] == "*" && i[4] != "*"){
+				dailyCount = 24 * (daysinmonth - i[4]);
+			}
+			else if(i[0] == "*" && i[2] == "*" && i[4] != "*"){
+				dailyCount = 24 * 60 * (daysinmonth - i[4]);
+			}
+		
+		  }
 	  }
 	  else if(strstr(i, weekly)){
 		  weeklyCount++;
