@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <ctype.h>
-#include <string.h>
+#include <time.h>
 
 
 // CITS2002 Project 1 2022
@@ -19,6 +19,8 @@
 
 #define Crontabsize 10000
 #define Crontablen 1000
+
+
 
 int main(int argcount, char argvalue[]) {
 
@@ -81,13 +83,6 @@ void reading_Crontabfile(char Crontab) {
 
   int line = 0;
 
-//use to find out wat each line is
-  char daily = "daily-backup";
-  char weekly = "weekly-backup";
-  char deep = "deep_thought";
-  char submit = "submit-project";
-  char send = "send-monthly-newsletter";
-
 //count use to find out the most used command
 
   int dailyCount = 0;
@@ -103,59 +98,72 @@ void reading_Crontabfile(char Crontab) {
 		  fclose(file);
 	  }
   }
+//the mains stuffs
+  for(int i = 0; i < line: i++){
+	  for(int j = 0; j < Crontablen, j++){
+		  if(data[0][6] == "*" || data[0][6] == monthNum){	
 
-//calcs and everything start here
-
-//HAS TO BE AN EASIER WAY THEN THIS? CAUSE ITS LIKE 64 IF STATEMENTS
-//btw the indexing reffers to like the min,hour,day
-  for(int i = 0; i < line; i++){
-	  if(strstr(i, daily)){
-		  if(i[6] == "*" || i[6] == monthNum){
-		  	if(i[0] == "*" && i[2] == "*" && i[4] == "*"){
+			  //daily count
+			  if(data[0][0] == "*" && data[0][2] == "*"){
 			  	dailyCount = 1440 * daysinmonth;
-		  	}
-		  	else if(i[0] != "*" && i[2] == "*" && i[4] == "*"){
-			  	dailyCount = 24 * daysinmonth;
-		  	}
-			else if(i[0] == "*" && i[2] != "*" && i[4] == "*"){
-				dailyCount = (24 - (i[2] + 1)) * daysinmonth;
+			  }
+			  else if(data[0][0] == "*" && data[0][2] != "*"){
+				dailyCount = (24 - (data[0][2])-1) * 60 * daysinmonth;
 			}
-			else if(i[0] != "*" && i[2] != "*" && i[4] == "*"){
-				dailyCount = daysinmonth;
+			else if(data[0][0] != "*" && data[0][2] == "*"){
+				dailyCount = 24 * daysinmonth;
 			}
-			else if(i[0] != "*" && i[2] == "*" && i[4] != "*"){
-				dailyCount = 24 * (daysinmonth - i[4]);
+			else if(data[0][0] != "*" && data[0][2] != "*"){
+				dailyCount = (24 - (data[0][2])-1) * daysinmonth;
 			}
-			else if(i[0] == "*" && i[2] == "*" && i[4] != "*"){
-				dailyCount = 24 * 60 * (daysinmonth - i[4]);
-			}
-		
+
 		  }
-	  }
-	  else if(strstr(i, weekly)){
-		  weeklyCount++;
-	  }
-	  else if(strstr(i, deep)){
-		  deepCount++;
-	  }
-	  else if(strstr(i, submit)){
-		  submitCount++;
-	  }
-	  else if(strstr(i, send)){
-		  sendCount++;
+		  //weekly
+		  if (data[1][6] == "*" || data[1][6] == monthNum){
+
+		  }
+		  //deepthought
+		  if(data[2][6] == "*" || data [2][6] == monthNum){
+
+		  }
+		  //submit-project
+		  if(data[3][6] == "*" || data[3][6] == monthNum){
+
+		  }
+		  //send-monthly
+		  if(data[4][6] == "*" || data[4][6] == monthNum){
+			  sendCount = 1;
+		  }
 	  }
 
   }
 
 //calculate the most called command
+//just did ladder, required less lines
+//most likely make it its own function
+char most_called_command[]
+	if(dailyCount > weeklyCount && dailyCount > deepCount && dailyCount > submitCount && dailyCount > sendCount){
+		most_called_command = "daily-backup";
+	}
+	else if(weeklyCount > dailyCount && weeklyCount > deepCount && weeklyCount > submitCount && weeklyCount > sendCount){
+		most_called_command = "weekly-backup";
+	}
 
-int d_or_w_max = max(dailyCount, weeklyCount);
-int d_or_s_max = max(deepCount, submitCount);
-int second_max = max(d_or_w_max, d_or_s_max);
-int most_called = max(second_max, sendCount);
+	else if(deepCount > dailyCount && deepCount > weeklyCount && deepCount > submitCount && deepCount > sendCount){
+		most_called_command = "deep-thought";
+	}
+	else if(submitCount > dailyCount && submitCount > weeklyCount && submitCount> deepCount && submitCount > sendCount){
+		most_called_command = "submit_project";
+	}
+	else{
+		most_called_command = "send-monthly-newsletter";
+	}
+
+
+
 
 //total amount of commands
-
+//can make its own function, but kinda of small so not required
 int total_commands = 0;
 int total_commands = dailyCount + weeklyCount + deepCount + submitCount + sendCount;
 
@@ -168,20 +176,7 @@ int total_commands = dailyCount + weeklyCount + deepCount + submitCount + sendCo
 
 
 
-//little funciton to find max value
-
-int max(int x, int y){
-	if(x > y){
-		return x;
-	}
-	else{
-		return y;
-	}
-}
 
 
-//setup counter maybe in the reading function or possibly its own function
-//deciding which is less messy
-//thiking of making an array for the counter, so we can use a for loop possibly to determine which one occured the most
-//may be easier way not too sure
-//not too sure how to determine max no. of commands running at any time
+
+//printf(most frequent command executed, total num of commands invoked, maximum num of commands running);
