@@ -26,25 +26,18 @@ int main(int argcount, char** argvalue) {
     printf("Error, not enough arguments\n");
     exit(EXIT_FAILURE);
   }
-  printf("%s\n", argvalue[2]);
-  int i;
-  for (i=0; i<argcount; i++) {
-      printf("argument %s\n", argvalue[i]);
-  }
-
-  FILE *filename = fopen(argvalue[3], "r");
-  char month = atof(argvalue[1]);
-  char Crontab = atof(argvalue[2]);
-  char estfile = ('s');
+  char estfile = argvalue[3];
+  char month = argvalue[1];
+  char Crontab = argvalue[2];
   error_check(Crontab);
   error_check(estfile);
-
+   
   exit(EXIT_SUCCESS);
 }
 
 
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
-void error_check(char *file[]) {
+void error_check() {
   // opening file of name passed via parameter of filename
   if (file == NULL) {
     printf("Cannot open '%S'\n", file);
@@ -94,8 +87,3 @@ void reading_CrONTABfile(char Crontab) {
 //thiking of making an array for the counter, so we can use a for loop possibly to determine which one occured the most
 //may be easier way not too sure
 //not too sure how to determine max no. of commands running at any time
-
-
-
-//*****MAIN FUNCTION V. IMPORTANT HOPEFLY THIS HELPS U FIND*****
-
