@@ -27,7 +27,7 @@ void which_month(char month) {
 	int monthNum = 0;
 	int daysinmonth = 0;
 
-	if(isdigit(month)){ //the ==TRUE is uncesseary as program will evaluate isdigit to true regardless
+	if(isdigit(month)==1){ //the Isdigit function evaluates to 1 or 0 (as opposed to true or false) so I fixed it for ya ;)
 		monthNum = month;
 		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
 			daysinmonth = 31;
@@ -36,10 +36,10 @@ void which_month(char month) {
 			daysinmonth = 28;
 		}
 		else if(month == 4 || month == 6 || month == 9 || month == 11){
-			daysinmonth = 30:
+			daysinmonth = 30;
 		}
 		else{
-			printf("Invalid month")
+			printf("Invalid month");
 		}
 	}
 
