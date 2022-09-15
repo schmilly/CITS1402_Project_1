@@ -4,6 +4,10 @@
 #include <unistd.h>
 #include <ctype.h>
 
+
+// TOREMOVE == Marking lines for debugging
+// TODO == Does this need to be explained?
+
 // defining size of chrachter array for files
 #define Estfilesize 10000
 
@@ -13,11 +17,13 @@
 int main(int argcount, char **argvalue) {
 
   // checking to see we have the correct number of arguments
-  if (argcount > 3){
+  printf(argcount); 
+  printf(argvalue);
+  if (argcount > 4){
     printf("Error, too many arguments\n");
     exit(EXIT_FAILURE);
   }
-  else if (argcount < 3) {
+  else if (argcount < 4) {
     printf("Error, not enough arguments\n");
     exit(EXIT_FAILURE);
   }
