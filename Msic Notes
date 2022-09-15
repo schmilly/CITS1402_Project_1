@@ -1,0 +1,83 @@
+MSIC notes
+// TOREMOVE == Marking lines for debugging
+// TODO == Does this need to be explained?
+
+void which_month(char month) {
+  // TODO
+
+	int monthNum = 0;
+	int daysinmonth = 0;
+
+	if(isdigit(month)==1){ //the Isdigit function evaluates to 1 or 0 (as opposed to true or false) so I fixed it for ya ;)
+		monthNum = month;
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+			daysinmonth = 31;
+		}
+		else if(month == 2){
+			daysinmonth = 28;
+		}
+		else if(month == 4 || month == 6 || month == 9 || month == 11){
+			daysinmonth = 30;
+		}
+		else{
+			printf("Invalid month");
+		}
+	}
+
+
+	else{
+	switch (month) {
+		case "jan":
+			daysinmonth = 31;
+			monthNum = 1;
+			break;
+		case "feb":
+			daysinmonth = 28;
+			monthNum = 2;
+			break;
+		case "mar":
+			daysinmonth = 31;
+			monthNum = 3;
+			break;
+		case "apr":
+			daysinmonth = 30;
+			monthNum = 4;
+			break;
+		case "may":
+			daysinmonth = 31;
+			monthNum = 5;
+			break;
+		case "jun":
+			daysinmonth = 30;
+			monthNum = 6;
+			break;
+		case "jul":
+			daysinmonth = 31;
+			monthNum = 7;
+			break;
+		case "aug":
+			daysinmonth = 31;
+			monthNum = 8;
+			break;
+		case "sep":
+			daysinmonth = 30;
+			monthNum = 9;
+			break;
+		case "oct":
+			daysinmonth = 31;
+			monthNum = 10;
+			break;
+		case "nov":
+			daysinmonth = 30;
+			monthNum = 11;
+			break;
+		case "dec":
+			daysinmonth = 31;
+			monthNum = 12;
+			break;
+	}
+
+
+
+}
+

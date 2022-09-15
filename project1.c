@@ -14,11 +14,11 @@
 #define Crontabsize 10000
 #define Crontablen 1000
 
-int main(int argcount, char **argvalue) {
+int main(int argcount, char** argvalue) {
+  int l = argcount;
 
-  // checking to see we have the correct number of arguments
-  printf(argcount); 
-  printf(argvalue);
+  // checking to see we have the correct number of arguments (debuggin bs)
+  printf("argument count: %d\n", argcount); 
   if (argcount > 4){
     printf("Error, too many arguments\n");
     exit(EXIT_FAILURE);
@@ -29,13 +29,13 @@ int main(int argcount, char **argvalue) {
   }
 
   int i;
-  for (i=0; i<argcount; i++) {}
+  for (i=0; i<argcount; i++) {
       printf("%s\n", argvalue[i]);
-
+  }
   FILE *filename = fopen(argvalue[3], "r");
-  char month = atof(argvalue[1][1]);
-  char Crontab = atof(argvalue[2][1]);
-
+  char month = atof(argvalue[1]);
+  char Crontab = atof(argvalue[2]);
+  char estfile = ('s');
   error_check(Crontab);
   error_check(estfile);
 
@@ -54,84 +54,6 @@ void error_check(char *file[]) {
 
 // use with if statment for if it's the string version, we'll relie on string
 // version for this stuff I rekon
-void which_month(char month) {
-  // TODO
-
-	int monthNum = 0;
-	int daysinmonth = 0;
-
-	if(isdigit(month)==1){ //the Isdigit function evaluates to 1 or 0 (as opposed to true or false) so I fixed it for ya ;)
-		monthNum = month;
-		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
-			daysinmonth = 31;
-		}
-		else if(month == 2){
-			daysinmonth = 28;
-		}
-		else if(month == 4 || month == 6 || month == 9 || month == 11){
-			daysinmonth = 30;
-		}
-		else{
-			printf("Invalid month");
-		}
-	}
-
-
-	else{
-	switch (month) {
-		case "jan":
-			daysinmonth = 31;
-			monthNum = 1;
-			break;
-		case "feb":
-			daysinmonth = 28;
-			monthNum = 2;
-			break;
-		case "mar":
-			daysinmonth = 31;
-			monthNum = 3;
-			break;
-		case "apr":
-			daysinmonth = 30;
-			monthNum = 4;
-			break;
-		case "may":
-			daysinmonth = 31;
-			monthNum = 5;
-			break;
-		case "jun":
-			daysinmonth = 30;
-			monthNum = 6;
-			break;
-		case "jul":
-			daysinmonth = 31;
-			monthNum = 7;
-			break;
-		case "aug":
-			daysinmonth = 31;
-			monthNum = 8;
-			break;
-		case "sep":
-			daysinmonth = 30;
-			monthNum = 9;
-			break;
-		case "oct":
-			daysinmonth = 31;
-			monthNum = 10;
-			break;
-		case "nov":
-			daysinmonth = 30;
-			monthNum = 11;
-			break;
-		case "dec":
-			daysinmonth = 31;
-			monthNum = 12;
-			break;
-	}
-
-
-
-}
 
 
 void reading_Estfil(char estfile) {
