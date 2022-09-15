@@ -20,8 +20,8 @@ void error_check(char *filename) {
   printf("Running error checks now!\n");
   
   printf("checking file:%s\n", filename);
-  void *file = NULL;
-  if (file == NULL) {
+  int file = open(filename, O_RDONLY);
+  if (file == -1) {
     printf("Cannot open %s\n", file);
     exit(EXIT_FAILURE);
   }
