@@ -10,6 +10,33 @@
 #define Crontabsize 10000
 #define Crontablen 1000
 
+int main(int argcount, char **argvalue) {
+
+  // checking to see we have the correct number of arguments
+  if (argcount > 3){
+    printf("Error, too many arguments\n");
+    exit(EXIT_FAILURE);
+  }
+  else if (argcount < 3) {
+    printf("Error, not enough arguments\n");
+    exit(EXIT_FAILURE);
+  }
+
+  int i;
+  for (i=0; i<argcount; i++) {}
+      printf("%s\n", argvalue[i]);
+
+  FILE *filename = fopen(argvalue[3], "r");
+  char month = atof(argvalue[1][1]);
+  char Crontab = atof(argvalue[2][1]);
+
+  error_check(Crontab);
+  error_check(estfile);
+
+  exit(EXIT_SUCCESS);
+}
+
+
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
 void error_check(char *file[]) {
   // opening file of name passed via parameter of filename
@@ -143,25 +170,4 @@ void reading_CrONTABfile(char Crontab) {
 
 
 //*****MAIN FUNCTION V. IMPORTANT HOPEFLY THIS HELPS U FIND*****
-int main(int argcount, char *argvalue[]) {
-  // defining parameters to pass to functions
-  if (argcount > 3) {
-    printf("Error, too many arguments");
-    exit(EXIT_FAILURE);
-  }
-  if (argcount < 3) {
-    printf("Error, not enough arguments");
-    exit(EXIT_FAILURE);
-  }
-  for (i=0; i<argc; i++)
-      printf("%s\n", arv[i]);
 
-  FILE *filename = fopen(argvalue[3], "r");
-  char month = atof(argvalue[1][1]);
-  char Crontab = atof(argvalue[2][1]);
-
-  error_check(Crontab);
-  error_check(estfile);
-
-  exit(EXIT_SUCCESS);
-}
