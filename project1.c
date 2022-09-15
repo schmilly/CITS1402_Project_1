@@ -14,33 +14,15 @@
 #define Crontabsize 10000
 #define Crontablen 1000
 
-int main(int argcount, char argvalue[]) {
-
-  // checking to see we have the correct number of arguments (debuggin bs)
-  printf("argument count: %d\n", argcount); 
-  if (argcount > 4){
-    printf("Error, too many arguments\n");
-    exit(EXIT_FAILURE);
-  }
-  else if (argcount < 4) {
-    printf("Error, not enough arguments\n");
-    exit(EXIT_FAILURE);
-  }
-  char estfile = argvalue[3];
-  char month = argvalue[1];
-  char Crontab = argvalue[2];
-  error_check(Crontab);
-  error_check(estfile);
-   
-  exit(EXIT_SUCCESS);
-}
-
-
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
-void error_check(char file) {
+void error_check(char *filename) {
   // opening file of name passed via parameter of filename
+  printf("Running error checks now!\n");
+  
+  printf("checking file:%s\n", filename);
+  void *file = NULL;
   if (file == NULL) {
-    printf("Cannot open '%S'\n", file);
+    printf("Cannot open %s\n", file);
     exit(EXIT_FAILURE);
   }
 }
@@ -87,3 +69,28 @@ void reading_CrONTABfile(char Crontab) {
 //thiking of making an array for the counter, so we can use a for loop possibly to determine which one occured the most
 //may be easier way not too sure
 //not too sure how to determine max no. of commands running at any time
+
+
+//Main function goes here or c compiler yells at me :((
+int main(int argcount, char *argvalue[]) {
+
+  // checking to see we have the correct number of arguments (debuggin bs)
+  printf("argument count: %d\n", argcount); 
+  if (argcount > 4){
+    printf("Error, too many arguments\n");
+    exit(EXIT_FAILURE);
+  }
+  else if (argcount < 4) {
+    printf("Error, not enough arguments\n");
+    exit(EXIT_FAILURE);
+  }
+  printf("%s\n", argvalue[2]);
+  char *estfile = argvalue[3];
+  char *month = argvalue[1];
+  char *Crontab = argvalue[2];
+  printf("Sucesfully assigned Terminal arguments; moving on...\n"); //TOREMOVE
+  error_check(Crontab);
+  error_check(estfile);
+   
+  exit(EXIT_SUCCESS);
+}
