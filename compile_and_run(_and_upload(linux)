@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cc -o project1 project1.c 
+./project1 1 ./test-crontab-file ./test-estimate-file
+git commit -am "Auatomatic Upload (Ran Specific File)"
+git push origin filehandler
