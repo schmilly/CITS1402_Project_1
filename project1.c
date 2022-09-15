@@ -153,10 +153,12 @@ int main(int argcount, char *argvalue[]) {
     printf("Error, not enough arguments");
     exit(EXIT_FAILURE);
   }
-  char 
-  FILE *f = fopen(argvalue[3], "r");
-  char month = atof(argvalue[1]);
-  char Crontab = atof(argvalue[2]);
+  for (i=0; i<argc; i++)
+      printf("%s\n", arv[i]);
+
+  FILE *filename = fopen(argvalue[3], "r");
+  char month = atof(argvalue[1][1]);
+  char Crontab = atof(argvalue[2][1]);
 
   error_check(Crontab);
   error_check(estfile);
