@@ -9,12 +9,11 @@
 // TODO == Does this need to be explained?
 
 // defining size of chrachter array for files
-#define Estfilesize 10000
-#define Crontabsize 10000
+#define filesize 10000
 #define Crontablen 1000
-char error_check(char *filename) {
+void error_check(char *filename) {
   // opening file of name passed via parameter of filename
-  printf("Attempting to open %s actually exists\n", filename);
+  printf("Attempting to check %s actually exists\n", filename);
   int file = open(filename, O_RDONLY);
   if (file == -1) {
     printf("Cannot open %s\n", file);
@@ -23,8 +22,6 @@ char error_check(char *filename) {
   printf("File Found!\n");
   //TODO fix this so it doesn't core dump or seg faults
   //every time it trys to read a file that doesn't exist
-  char t = ('r');
-  return t;
 }
 
 char reading_file(char *filename) {
@@ -40,7 +37,18 @@ char reading_file(char *filename) {
   // fseek(file, 0L, SEEK_END);
   // int sz = ftell(*file);
   // printf("file size is: %s\n",sz);
-
+  
+  int i;
+  int x;
+  char Filearray[filesize];
+  //File read loop
+  while((i = fgetc(file)) != EOF) {
+    i = Filearray[x];
+    printf("%s|",x);
+    printf("%d|",i);
+    x++;
+  }
+  return Filearray; 
 }
 
 //This is where the month conversion function would go but still broken so idk
@@ -55,7 +63,6 @@ void argumentcheck(int argcount){
     exit(EXIT_FAILURE);
   }
 }
-
 
 //Main function goes here or c compiler yells at me :((
 int main(int argcount, char *argvalue[]) {
