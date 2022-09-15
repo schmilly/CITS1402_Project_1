@@ -11,20 +11,11 @@
 // defining size of chrachter array for files
 #define filesize 10000
 #define Crontablen 1000
-void error_check(char *filename) {
-  // opening file of name passed via parameter of filename
-  printf("Attempting to check %s actually exists\n", filename);
-  int file = open(filename, O_RDONLY);
-  if (file == -1) {
-    printf("Cannot open %s\n", file);
-    exit(EXIT_FAILURE);
-  }
-  printf("File Found!\n");
-  //TODO fix this so it doesn't core dump or seg faults
-  //every time it trys to read a file that doesn't exist
+void fileprocess(char *line, char estcron){
+  printf("Processing file!");
+  //todo
 }
-
-char reading_file(char *filename) {
+void reading_file(char *filename, char estcron) {
   // TODO
   printf("Reading file %s\n", filename);
   FILE *file = fopen(filename, "r");
@@ -38,17 +29,43 @@ char reading_file(char *filename) {
   // int sz = ftell(*file);
   // printf("file size is: %s\n",sz);
   
-  int i;
-  int x;
-  char Filearray[filesize];
+  int i = 0;
+  char Line[100];
   //File read loop
-  while((i = fgetc(file)) != EOF) {
-    i = Filearray[x];
-    printf("%s|",x);
-    printf("%d|",i);
-    x++;
+  while ( fgets(Line, sizeof Line, file)){
+    trim_line( Line );
+    fileprocess( Line, estcron);
+  } 
+}
+
+// Yonked from FileIO lecture (very useful thanks)
+void trim_line(char line[])
+{
+    int i = 0;
+
+//  LOOP UNTIL WE REACH THE END OF line
+    while(line[i] != '\0') {
+
+//  CHECK FOR CARRIAGE-RETURN OR NEWLINE
+        if( line[i] == '\r' || line[i] == '\n' ) {
+            line[i] = '\0'; // overwrite with nul-byte
+            break;          // leave the loop early
+        }
+        i = i+1;            // iterate through character array
+    }
+}
+
+void error_check(char *filename) {
+  // opening file of name passed via parameter of filename
+  printf("Attempting to check %s actually exists\n", filename);
+  int file = open(filename, O_RDONLY);
+  if (file == -1) {
+    printf("Cannot open %s\n", file);
+    exit(EXIT_FAILURE);
   }
-  return Filearray; 
+  printf("File Found!\n");
+  //TODO fix this so it doesn't core dump or seg faults
+  //every time it trys to read a file that doesn't exist
 }
 
 //This is where the month conversion function would go but still broken so idk
@@ -81,7 +98,7 @@ int main(int argcount, char *argvalue[]) {
   printf("All files exist; moving on....\n");
   //Reading files specifically
 
-  char cronout = reading_file(Crontab);
-  char estout = reading_file(estfile);
+  reading_file(Crontab, "cron");
+  reading_file(estfile, "est");
   exit(EXIT_SUCCESS);
 }
