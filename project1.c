@@ -10,7 +10,6 @@
 
 // defining size of chrachter array for files
 #define Estfilesize 10000
-
 #define Crontabsize 10000
 #define Crontablen 1000
 
@@ -23,7 +22,7 @@ void error_check(char *filename) {
     printf("Cannot open %s\n", file);
     exit(EXIT_FAILURE);
   }
-  prinf("File Found!");
+  printf("File Found!\n");
   //TODO fix this so it doesn't core dump or seg faults
   //every time it trys to read a file that doesn't exist
 }
@@ -32,51 +31,33 @@ void error_check(char *filename) {
 // version for this stuff I rekon
 
 
-void reading_Estfil(char estfile) {
+char reading_file(char *filename) {
   // TODO
-  printf("Reading estfil...");
+  printf("Reading file...");
+  int sz;
+  FILE *fp = fopen(filename, "r");
 
-	
-}
-//just did some file error and opening stuff. converted it into an array of string
-void reading_CrONTABfile(char Crontab) {
-  // TODO
-  char data[Crontabsize][Crontablen];
-
-  FILE *file;
-
-  file = fopen("file.txt", "r");
-
-  if (file == NULL)
-  {
-	  printf("Error opening file.\n");
-	  exit(EXIT_FAILURE);
+  if (fp == NULL) {
+    printf("cannot open %s\n", filename);
+    exit(EXIT_FAILURE);
   }
 
-  int line = 0;
+  printf("File sucesfully opened");
+    fseek(fp, 0L, SEEK_END);
+  sz = ftell(fp);
+  printf("file size is: %s\n",sz);
 
-  while(!feof(file) && ferror(file))
-	  if(fgets(data[line], Crontablen, file) != NULL)
-		  line++;
-  fclose(file);
 
-  for (int i = 0; i < line; i++)
-	  printf("%s", data[i]);
+  
+
 }
 
 
-//setup counter maybe in the reading function or possibly its own function
-//deciding which is less messy
-//thiking of making an array for the counter, so we can use a for loop possibly to determine which one occured the most
-//may be easier way not too sure
-//not too sure how to determine max no. of commands running at any time
 
+//This is where the month conversion function would go but still broken so idk
 
-//Main function goes here or c compiler yells at me :((
-int main(int argcount, char *argvalue[]) {
+void argumentcheck(int argcount){
 
-  // checking to see we have the correct number of arguments (debuggin bs)
-  printf("argument count: %d\n", argcount); 
   if (argcount > 4){
     printf("Error, too many arguments\n");
     exit(EXIT_FAILURE);
@@ -85,13 +66,26 @@ int main(int argcount, char *argvalue[]) {
     printf("Error, not enough arguments\n");
     exit(EXIT_FAILURE);
   }
-  printf("%s\n", argvalue[2]);
+}
+
+
+//Main function goes here or c compiler yells at me :((
+int main(int argcount, char *argvalue[]) {
+  
+  //Converted to function for sake of it looking nicer
+  argumentcheck(argcount);
+
   char *estfile = argvalue[3];
   char *month = argvalue[1];
   char *Crontab = argvalue[2];
-  printf("Sucesfully assigned Terminal arguments; moving on...\n"); //TOREMOVE
+  printf("Sucesfully assigned Terminal arguments; moving on...\n"); //toremove, user doesn't care
+  //Error Checking of files
   error_check(Crontab);
   error_check(estfile);
-   
+  printf("All files exist; moving on....\n"); 
+  
+  //Reading files specifically
+  char cronout = reading_file(Crontab);
+  char estout = reading_file(estfile);
   exit(EXIT_SUCCESS);
 }
