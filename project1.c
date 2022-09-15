@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <ctype.h>
-
+#include <string.h>
 
 // TOREMOVE == Marking lines for debugging
 // TODO == Does this need to be explained?
@@ -13,10 +13,9 @@
 #define Crontabsize 10000
 #define Crontablen 1000
 
-//**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
-void error_check(char *filename) {
+char error_check(char *filename) {
   // opening file of name passed via parameter of filename
-  printf("Checking that %s actually exists\n", filename);
+  printf("Attempting to open %s actually exists\n", filename);
   int file = open(filename, O_RDONLY);
   if (file == -1) {
     printf("Cannot open %s\n", file);
@@ -25,31 +24,23 @@ void error_check(char *filename) {
   printf("File Found!\n");
   //TODO fix this so it doesn't core dump or seg faults
   //every time it trys to read a file that doesn't exist
+  char t = ('r');
+  return t;
 }
-
-// use with if statment for if it's the string version, we'll relie on string
-// version for this stuff I rekon
-
 
 char reading_file(char *filename) {
   // TODO
-  printf("Reading file...");
-  int sz;
-  FILE *fp = fopen(filename, "r");
-
-  if (fp == NULL) {
+  printf("Reading file %s\n", filename);
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
     printf("cannot open %s\n", filename);
     exit(EXIT_FAILURE);
   }
 
-  printf("File sucesfully opened");
-    fseek(fp, 0L, SEEK_END);
-  sz = ftell(fp);
-  printf("file size is: %s\n",sz);
-
-
-  
-
+  printf("File sucesfully opened \n");
+  // fseek(file, 0L, SEEK_END);
+  // int sz = ftell(*file);
+  // printf("file size is: %s\n",sz);
 }
 
 
@@ -57,7 +48,6 @@ char reading_file(char *filename) {
 //This is where the month conversion function would go but still broken so idk
 
 void argumentcheck(int argcount){
-
   if (argcount > 4){
     printf("Error, too many arguments\n");
     exit(EXIT_FAILURE);
@@ -71,6 +61,7 @@ void argumentcheck(int argcount){
 
 //Main function goes here or c compiler yells at me :((
 int main(int argcount, char *argvalue[]) {
+  printf("Spinning up program now!\n");
   
   //Converted to function for sake of it looking nicer
   argumentcheck(argcount);
@@ -82,9 +73,9 @@ int main(int argcount, char *argvalue[]) {
   //Error Checking of files
   error_check(Crontab);
   error_check(estfile);
-  printf("All files exist; moving on....\n"); 
-  
+  printf("All files exist; moving on....\n");
   //Reading files specifically
+
   char cronout = reading_file(Crontab);
   char estout = reading_file(estfile);
   exit(EXIT_SUCCESS);
