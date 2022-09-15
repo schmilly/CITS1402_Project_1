@@ -14,7 +14,7 @@
 #define Crontabsize 10000
 #define Crontablen 1000
 
-int main(int argcount, char** argvalue) {
+int main(int argcount, char argvalue[]) {
 
   // checking to see we have the correct number of arguments (debuggin bs)
   printf("argument count: %d\n", argcount); 
@@ -26,9 +26,9 @@ int main(int argcount, char** argvalue) {
     printf("Error, not enough arguments\n");
     exit(EXIT_FAILURE);
   }
-  char estfile = argvalue[3];
-  char month = argvalue[1];
-  char Crontab = argvalue[2];
+  char estfile[] = argvalue[3];
+  char month[] = argvalue[1];
+  char Crontab[] = argvalue[2];
   error_check(Crontab);
   error_check(estfile);
    
@@ -37,8 +37,10 @@ int main(int argcount, char** argvalue) {
 
 
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
-void error_check() {
+void error_check(char filename[]) {
   // opening file of name passed via parameter of filename
+  
+
   if (file == NULL) {
     printf("Cannot open '%S'\n", file);
     exit(EXIT_FAILURE);
@@ -56,29 +58,9 @@ void reading_Estfil(char estfile) {
 	
 }
 //just did some file error and opening stuff. converted it into an array of string
-void reading_CrONTABfile(char Crontab) {
+void reading_Crontabfile(char Crontab) {
   // TODO
-  char data[Crontabsize][Crontablen];
-
-  FILE *file;
-
-  file = fopen("file.txt", "r");
-
-  if (file == NULL)
-  {
-	  printf("Error opening file.\n");
-	  exit(EXIT_FAILURE);
-  }
-
-  int line = 0;
-
-  while(!feof(file) && ferror(file))
-	  if(fgets(data[line], Crontablen, file) != NULL)
-		  line++;
-  fclose(file);
-
-  for (int i = 0; i < line; i++)
-	  printf("%s", data[i]);
+  printf("ReadingContabfile");
 }
 
 
