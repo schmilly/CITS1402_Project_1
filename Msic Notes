@@ -26,56 +26,59 @@ void which_month(char month) {
 
 
 	else{
-	switch (month) {
-		case "jan":
-			daysinmonth = 31;
-			monthNum = 1;
-			break;
-		case "feb":
-			daysinmonth = 28;
-			monthNum = 2;
-			break;
-		case "mar":
-			daysinmonth = 31;
-			monthNum = 3;
-			break;
-		case "apr":
-			daysinmonth = 30;
-			monthNum = 4;
-			break;
-		case "may":
-			daysinmonth = 31;
-			monthNum = 5;
-			break;
-		case "jun":
-			daysinmonth = 30;
-			monthNum = 6;
-			break;
-		case "jul":
-			daysinmonth = 31;
-			monthNum = 7;
-			break;
-		case "aug":
-			daysinmonth = 31;
-			monthNum = 8;
-			break;
-		case "sep":
-			daysinmonth = 30;
-			monthNum = 9;
-			break;
-		case "oct":
-			daysinmonth = 31;
-			monthNum = 10;
-			break;
-		case "nov":
-			daysinmonth = 30;
-			monthNum = 11;
-			break;
-		case "dec":
-			daysinmonth = 31;
-			monthNum = 12;
-			break;
+	if(month == "jan"){
+		daysinmonth = 31;
+		monthNum = 1
+		}
+	else if(month == "feb"){
+		daysinmonth = 28;
+		monthNum = 2;
+		}
+	else if(month == "mar"){
+		daysinmonth = 31;
+		monthNum = 3;
+		}
+	else if(month == "apr"){
+		daysinmonth = 30;
+		monthNum = 4;
+		}
+	else if(month == "may"){
+		daysinmonth = 31;
+		monthNum = 5;
+		}
+	else if(month == "jun"){
+		daysinmonth = 30;
+		monthNum = 6;
+		}
+	else if(month == "jul"){
+		daysinmonth = 31;
+		monthNum = 7;
+		}
+	else if(month == "aug"){
+		daysinmonth = 31;
+		monthNum = 8;
+		}
+	else if(month == "sep"){
+		daysinmonth = 30;
+		monthNum = 9;
+		}
+	else if(month == "oct"){
+		daysinmonth = 31;
+		monthNum = 10;
+		}
+	else if(month ==  "nov"){
+		daysinmonth = 30;
+		monthNum = 11;
+		}
+	else if(month == "dec"){
+		daysinmonth = 31;
+		monthNum = 12;
+		}
+	else{
+		printf("Invalid month")
+		}
 	}
+
 
 
 
