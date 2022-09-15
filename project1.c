@@ -12,7 +12,6 @@
 #define Estfilesize 10000
 #define Crontabsize 10000
 #define Crontablen 1000
-
 char error_check(char *filename) {
   // opening file of name passed via parameter of filename
   printf("Attempting to open %s actually exists\n", filename);
@@ -41,9 +40,8 @@ char reading_file(char *filename) {
   // fseek(file, 0L, SEEK_END);
   // int sz = ftell(*file);
   // printf("file size is: %s\n",sz);
+
 }
-
-
 
 //This is where the month conversion function would go but still broken so idk
 
