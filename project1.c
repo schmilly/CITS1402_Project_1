@@ -4,6 +4,10 @@
 #include <unistd.h>
 #include <ctype.h>
 
+// CITS2002 Project 1 2022
+// Student1: 
+// Student2: 22902133 JIOW JOSHUA
+
 
 // TOREMOVE == Marking lines for debugging
 // TODO == Does this need to be explained?
@@ -62,7 +66,7 @@ void reading_CrONTABfile(char Crontab) {
 
   FILE *file;
 
-  file = fopen("file.txt", "r");
+  file = fopen(Crontab, "r");
 
   if (file == NULL)
   {
@@ -72,13 +76,18 @@ void reading_CrONTABfile(char Crontab) {
 
   int line = 0;
 
-  while(!feof(file) && ferror(file))
-	  if(fgets(data[line], Crontablen, file) != NULL)
+  while(!feof(file) && ferror(file)){
+	  if(fgets(data[line], Crontablen, file) != NULL){
 		  line++;
-  fclose(file);
+		  fclose(file);
+	  }
+  }
+  for (int i = 0; i < line; i++){
+	  
 
-  for (int i = 0; i < line; i++)
-	  printf("%s", data[i]);
+
+	  }
+  }
 }
 
 
