@@ -17,14 +17,15 @@
 //**CURRENTLY DOESN'T WORK, NEED TO FIGURE OUT WHY AND HOW TO GET IT TO WORK
 void error_check(char *filename) {
   // opening file of name passed via parameter of filename
-  printf("Running error checks now!\n");
-  
-  printf("checking file:%s\n", filename);
+  printf("Checking that %s actually exists\n", filename);
   int file = open(filename, O_RDONLY);
   if (file == -1) {
     printf("Cannot open %s\n", file);
     exit(EXIT_FAILURE);
   }
+  prinf("File Found!");
+  //TODO fix this so it doesn't core dump or seg faults
+  //every time it trys to read a file that doesn't exist
 }
 
 // use with if statment for if it's the string version, we'll relie on string
