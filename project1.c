@@ -15,7 +15,6 @@
 #define Crontablen 1000
 
 int main(int argcount, char** argvalue) {
-  int l = argcount;
 
   // checking to see we have the correct number of arguments (debuggin bs)
   printf("argument count: %d\n", argcount); 
@@ -27,11 +26,12 @@ int main(int argcount, char** argvalue) {
     printf("Error, not enough arguments\n");
     exit(EXIT_FAILURE);
   }
-
+  printf("%s\n", argvalue[2]);
   int i;
   for (i=0; i<argcount; i++) {
-      printf("%s\n", argvalue[i]);
+      printf("argument %s\n", argvalue[i]);
   }
+
   FILE *filename = fopen(argvalue[3], "r");
   char month = atof(argvalue[1]);
   char Crontab = atof(argvalue[2]);
