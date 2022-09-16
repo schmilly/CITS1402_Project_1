@@ -29,7 +29,7 @@ struct {
   int minutenum;
   int calls;
 } ignore = {
-  "Doddgerblue",
+  "ignoretestcase",
   30,
   144,
   144,
@@ -63,27 +63,29 @@ void trim_line(char line[0])
 
 
 
-int weekcalc(char week){
+int weekcalc(char *week){
 	int numberweek = 0;
-  if (isdigit(week)==1){
-    printf("Week is digit");
-    numberweek = (int)week;
+  printf("First string in array is %c\n",week[0]);
+  printf("isdigit is reutrning %d\n",isdigit(week[0]));
+  if ((isdigit(week[0]))==2048){ //Outputted as 2048 everytime it tested for interger, I have no idea why
+    printf("Week is digit\n");
+    sscanf(week, "%d", &numberweek);
     return numberweek;
   }
-  printf("Isn't digit!");
+  printf("Isn't digit!\n");
   if(strcmp(week, "mon")==0){
 				return 0;}
-	else if(strcmp(*week, "tue")==0){
+	else if(strcmp(week, "tue")==0){
 				return 1;}
-	else if(strcmp(&week, "wed")==0){
+	else if(strcmp(week, "wed")==0){
 				return 2;}
-	else if(strcmp(&week, "thu")==0){
+	else if(strcmp(week, "thu")==0){
 				return 3;}
-	else if(strcmp(&week, "fri")==0){
+	else if(strcmp(week, "fri")==0){
 				return 4;}
-	else if(strcmp(&week, "sat")==0){
+	else if(strcmp(week, "sat")==0){
 				return 5;}
-	else if(strcmp(&week, "sun")==0){
+	else if(strcmp(week, "sun")==0){
 				return 6;}
 	else{
 		printf("Invalid Weekday\n");
@@ -96,7 +98,7 @@ int monthcalcday(int monthNum){
     if( monthNum == 0 || monthNum == 2 || monthNum == 4 || monthNum == 6 || monthNum == 7 || monthNum == 9 || monthNum == 11){
 			return 31;
 		}
-		else if(monthNum == 1){
+	else if(monthNum == 1){
 		  return 28;
 		}
 		else if(monthNum == 3 || monthNum == 5 || monthNum == 8 || monthNum == 10){
@@ -108,28 +110,71 @@ int monthcalcday(int monthNum){
 		}
 }
 
+
+
+int timevalue(int *pointers, char *line){
+  int pointer = *pointers;
+  do{
+  if ((line[pointer]) == ' ' ){
+    pointer++;*pointers++;
+  }
+  } while((line[pointer])==' '); //Every time I try and fix this to be better it breaks so idk
+
+  if ((line[pointer]) == '*'){
+    return -1;
+  }
+  printf("%c\n",line[pointer]);
+  int value = (int) (line[pointer]);
+  value = value - 48; //This is dumb but no of the char -> String conversion would work
+  if (line[pointer+1]!=' '){
+      pointer++;*pointers++;
+      value = value * 10;
+      value = value + (line[pointer]-48);
+     }
+  return value;
+}
+
 void lineprocess(int Line, char *line,char *estcron){
-  if (line[0]=='#'){printf("Comment line, skipping...\n"); return;} //Line is a comment, so exit the function as no data can be parsed of use 
-  int dailyCount = 0;
-  int montNum = 0;
-  int deepCount = 0;
-  int submitCount = 0;
-  int sendCount= 0;  
-  int daysinmonth=0;
-  char week1 = '1';
-  printf("%c\n", week1);
-  int weekNum = weekcalc(week1);
-  char week2[4];
-  strcpy(week2,"sun");
-  puts (week2);
-  int weeknum = weekcalc(week2);
-  printf("%d\n", weekNum);
-  int monthDay = monthcalcday(montNum);
+  if (line[0]=='#'){return;} //Line is a comment, so exit the function as no data can be parsed of use 
+  if (estcron=="cron"){
+  int pointer = 0;
+  char linepasser[30]; 
+  strcpy(linepasser,line);
+  int minuteval = timevalue(&pointer,linepasser);
+  printf("\nminute value %d & pointer value %d\n", minuteval, pointer);
+  int hourteval = timevalue(&pointer,linepasser);
+  printf("hour value %d & pointer value %d\n", hourteval, pointer);
+  pointer = pointer + 2;
+  int dayterval = timevalue(&pointer,linepasser);
+  printf("day value %d\n",dayterval);
+  pointer = pointer + 2;
+  int monthterval = timevalue(&pointer,linepasser);
+  printf("month interval %d\n\n", monthterval);
+  pointer = pointer + 2;
+
+
+
+
+//  char week2[4];
+//  strcpy(week2,"tue");
+//  puts (week2);
+//  int weeknum = weekcalc(week2);
+// printf("days in week numerical value%d\n", weeknum);
+//  int monthDay = monthcalcday(montNum);
+//  printf("Amount of Days in month: %i\n", monthDay);
+//  char week1[4];
+//  strcpy(week1,"sun");
+//  puts (week1);
+//  int weeknum = weekcalc(week1);
+//  printf("days in week numerical value %d\n", weeknum);
+
 
   //This stuff only useful after we process file.
   //the mains stuffs
-
-  //I REPLACED all the data stuff 
+  }
+  if (estcron=="est"){
+    printf("est file (this still needs to be programmed //todo) \n");
+  }
 }
 
 
