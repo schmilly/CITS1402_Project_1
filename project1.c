@@ -19,6 +19,25 @@
 #define Filesize 10000
 #define len 1000
 
+//Initalise of process 
+struct {
+  char *processname;
+  int monthnum;
+  int weeknum;
+  int daynum;
+  int hournum;
+  int minutenum;
+  int calls;
+} ignore = {
+  "Doddgerblue",
+  30,
+  144,
+  144,
+  144,
+  144,
+  144
+
+};
 
 // Yonked from FileIO lecture (very useful thanks)
 void trim_line(char line[0])
@@ -44,60 +63,68 @@ void trim_line(char line[0])
 
 
 
-int monthcalc(char *month){
-	int numbermonth = 0;
-  if (isdigit(month)==0){
-    return atoi(month);
+int weekcalc(char week){
+	int numberweek = 0;
+  if (isdigit(week)==1){
+    printf("Week is digit");
+    numberweek = (int)week;
+    return numberweek;
   }
-  if(strcmp(month, "jan")==0){
+  printf("Isn't digit!");
+  if(strcmp(week, "mon")==0){
 				return 0;}
-	else if(strcmp(month, "feb")==0){
+	else if(strcmp(*week, "tue")==0){
 				return 1;}
-	else if(strcmp(month, "mar")==0){
+	else if(strcmp(&week, "wed")==0){
 				return 2;}
-	else if(strcmp(month, "apr")==0){
+	else if(strcmp(&week, "thu")==0){
 				return 3;}
-	else if(strcmp(month, "may")==0){
+	else if(strcmp(&week, "fri")==0){
 				return 4;}
-	else if(strcmp(month, "jun")==0){
+	else if(strcmp(&week, "sat")==0){
 				return 5;}
-	else if(strcmp(month, "jul")==0){
+	else if(strcmp(&week, "sun")==0){
 				return 6;}
-	else if(strcmp(month, "aug")==0){
-				return 7;}
-	else if(strcmp(month, "sep")==0){
-				return 8;}
-	else if(strcmp(month, "oct")==0){
-				return 9;}
-	else if(strcmp(month,  "nov")==0){
-				return 10;}
-	else if(strcmp(month, "dec")==0){
-				return 11;}	
 	else{
-		printf("Invalid month\n");
+		printf("Invalid Weekday\n");
     exit(EXIT_FAILURE);
+		}
+  return numberweek;
+}
+
+int monthcalcday(int monthNum){
+    if( monthNum == 0 || monthNum == 2 || monthNum == 4 || monthNum == 6 || monthNum == 7 || monthNum == 9 || monthNum == 11){
+			return 31;
+		}
+		else if(monthNum == 1){
+		  return 28;
+		}
+		else if(monthNum == 3 || monthNum == 5 || monthNum == 8 || monthNum == 10){
+			return 30;
+		}
+		else{
+			printf("Invalid month\n");
+      exit(EXIT_FAILURE);
 		}
 }
 
-int monthcalcday(int montNum){
-  return 31; 
-
-}
-
 void lineprocess(int Line, char *line,char *estcron){
-  if (line[0]=='#'){printf("Comment line, skipping...\n"); return;} //Line is a comment, so exit the function as no data can be parsed of use
+  if (line[0]=='#'){printf("Comment line, skipping...\n"); return;} //Line is a comment, so exit the function as no data can be parsed of use 
   int dailyCount = 0;
-  int weeklyCount = 0;
+  int montNum = 0;
   int deepCount = 0;
   int submitCount = 0;
   int sendCount= 0;  
   int daysinmonth=0;
-  char month[4];
-  strcpy(month,"jan");
-  puts(month);
-  int montNum;
-  montNum = monthcalc(month);
-  // int monthDay = monthcalcday(montNum);
+  char week1 = '1';
+  printf("%c\n", week1);
+  int weekNum = weekcalc(week1);
+  char week2[4];
+  strcpy(week2,"sun");
+  puts (week2);
+  int weeknum = weekcalc(week2);
+  printf("%d\n", weekNum);
+  int monthDay = monthcalcday(montNum);
 
   //This stuff only useful after we process file.
   //the mains stuffs
