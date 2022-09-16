@@ -79,8 +79,34 @@ void which_month(char month) {
 		}
 	}
 
+}
+
+char most_called_command(command){
+	if(dailyCount > weeklyCount && dailyCount > deepCount && dailyCount > submitCount && dailyCount > sendCount){
+		char *most_called_command = "daily-backup";
+	}
+	else if(weeklyCount > dailyCount && weeklyCount > deepCount && weeklyCount > submitCount && weeklyCount > sendCount){
+		char *most_called_command = "weekly-backup";
+	}
+
+	else if(deepCount > dailyCount && deepCount > weeklyCount && deepCount > submitCount && deepCount > sendCount){
+		char *most_called_command = "deep-thought";
+	}
+	else if(submitCount > dailyCount && submitCount > weeklyCount && submitCount> deepCount && submitCount > sendCount){
+		char *most_called_command = "submit_project";
+	}
+	else{
+		char *most_called_command = "send-monthly-newsletter";
+	}
+
+  //total amount of commands
+  //can make its own function, but kinda of small so not required
+  int total_commands = 0;
+  int total_commands = dailyCount + weeklyCount + deepCount + submitCount + sendCount;
 
 
+  printf("Readingfile");
+  return most_called_command;
 
 }
 
