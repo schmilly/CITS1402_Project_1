@@ -107,6 +107,43 @@ char most_called_command(command){
 
   printf("Readingfile");
   return most_called_command;
+ 
 
-}
 
+   if (estcron == "cron"){
+  //Process for getting parsing cron files
+  for(int i = 0; i < Line; i++){
+	  for(int j = 0; j < Line; j++){
+		  if(line[0] == '*' || line[0] == monthNum){	
+			  //daily count
+			  if(line[0] == '*' && line[0] == '*'){
+			  	dailyCount = 1440 * *daysinmonth;
+			  }
+			  else if(line[0] == '*' && line[0] != '*'){
+			dailyCount = (24 - (line[1])-1) * 60 * *daysinmonth;
+			}
+			else if(line[0] != '*' && line[0] == '*'){
+				dailyCount = 24 * *daysinmonth;
+			}
+			else if(line[0] != '*' && line[0] != '*'){
+				dailyCount = (24 - (line[1])-1) * *daysinmonth;
+			}
+		  }
+		  //weekly
+		  if (line[0] == '*' || line[0] == monthNum){
+		  }
+		  //deepthought
+		  if(line[0] == '*' || line[0]  == monthNum){
+		  }
+	  //submit-project
+		  if(line[0] == '*' || line[0] == monthNum){
+		  }
+		  //send-monthly
+		  if(line[0] == '*' || line[0] == monthNum){
+			  sendCount = 1;
+      }
+  }}}
+    //did a find and replace since were 
+  else if (estcron == "est"){
+      //Code for processing est verson
+    }

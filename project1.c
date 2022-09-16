@@ -44,105 +44,65 @@ void trim_line(char line[0])
 
 
 
-void monthcalc(char *month, int *monthNum, int *daysinmonth){
-	if(month == "jan"){
-				*monthNum = 1;}
-	else if(month == "feb"){
-				*monthNum = 2;}
-	else if(month == "mar"){
-				*monthNum = 3;}
-	else if(month == "apr"){
-				*monthNum = 4;}
-	else if(month == "may"){
-				*monthNum = 5;}
-	else if(month == "jun"){
-				*monthNum = 6;}
-	else if(month == "jul"){
-				*monthNum = 7;}
-	else if(month == "aug"){
-				*monthNum = 8;}
-	else if(month == "sep"){
-				*monthNum = 9;}
-	else if(month == "oct"){
-				*monthNum = 10;}
-	else if(month ==  "nov"){
-				*monthNum = 11;}
-	else if(month == "dec"){
-				*monthNum = 12;}	
+int monthcalc(char *month){
+	int numbermonth = 0;
+  if (isdigit(month)==0){
+    return atoi(month);
+  }
+  if(strcmp(month, "jan")==0){
+				return 0;}
+	else if(strcmp(month, "feb")==0){
+				return 1;}
+	else if(strcmp(month, "mar")==0){
+				return 2;}
+	else if(strcmp(month, "apr")==0){
+				return 3;}
+	else if(strcmp(month, "may")==0){
+				return 4;}
+	else if(strcmp(month, "jun")==0){
+				return 5;}
+	else if(strcmp(month, "jul")==0){
+				return 6;}
+	else if(strcmp(month, "aug")==0){
+				return 7;}
+	else if(strcmp(month, "sep")==0){
+				return 8;}
+	else if(strcmp(month, "oct")==0){
+				return 9;}
+	else if(strcmp(month,  "nov")==0){
+				return 10;}
+	else if(strcmp(month, "dec")==0){
+				return 11;}	
 	else{
-		printf("Invalid month");
+		printf("Invalid month\n");
+    exit(EXIT_FAILURE);
 		}
-	if(isdigit(month)==1){ //the Isdigit function evaluates to 1 or 0 (as opposed to true or false) so I fixed it for ya ;)
-    *monthNum = atoi(month);
-  }
-	else{		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
-			daysinmonth = 31;
-		}
-		else if(month == 2){
-			daysinmonth = 28;
-		}
-		else if(month == 4 || month == 6 || month == 9 || month == 11){
-			daysinmonth = 30;
-		}
-		else{
-			printf("Invalid month");
-		}
-  }
+}
+
+int monthcalcday(int montNum){
+  return 31; 
+
 }
 
 void lineprocess(int Line, char *line,char *estcron){
-  if (line[0]='#'){return;} //Line is a comment, so exit the function as no data can be parsed of use
+  if (line[0]=='#'){printf("Comment line, skipping...\n"); return;} //Line is a comment, so exit the function as no data can be parsed of use
   int dailyCount = 0;
   int weeklyCount = 0;
   int deepCount = 0;
   int submitCount = 0;
   int sendCount= 0;  
-  int *monthNum=0;
-  int *daysinmonth=0;
-  char *month = "jan"; 
+  int daysinmonth=0;
+  char month[4];
+  strcpy(month,"jan");
+  puts(month);
+  int montNum;
+  montNum = monthcalc(month);
+  // int monthDay = monthcalcday(montNum);
 
-  monthcalc(month,monthNum,daysinmonth);
   //This stuff only useful after we process file.
   //the mains stuffs
 
   //I REPLACED all the data stuff 
-  if (estcron == "cron"){
-  //Process for getting parsing cron files
-  for(int i = 0; i < Line; i++){
-	  for(int j = 0; j < Line; j++){
-		  if(line[0] == '*' || line[0] == monthNum){	
-			  //daily count
-			  if(line[0] == '*' && line[0] == '*'){
-			  	dailyCount = 1440 * *daysinmonth;
-			  }
-			  else if(line[0] == '*' && line[0] != '*'){
-			dailyCount = (24 - (line[1])-1) * 60 * *daysinmonth;
-			}
-			else if(line[0] != '*' && line[0] == '*'){
-				dailyCount = 24 * *daysinmonth;
-			}
-			else if(line[0] != '*' && line[0] != '*'){
-				dailyCount = (24 - (line[1])-1) * *daysinmonth;
-			}
-		  }
-		  //weekly
-		  if (line[0] == '*' || line[0] == monthNum){
-		  }
-		  //deepthought
-		  if(line[0] == '*' || line[0]  == monthNum){
-		  }
-	  //submit-project
-		  if(line[0] == '*' || line[0] == monthNum){
-		  }
-		  //send-monthly
-		  if(line[0] == '*' || line[0] == monthNum){
-			  sendCount = 1;
-      }
-  }}}
-    //did a find and replace since were 
-  else if (estcron == "est"){
-      //Code for processing est verson
-    }
 }
 
 
@@ -168,11 +128,16 @@ void reading_file(char *filename, char *estcron) {
   while ( fgets(Line, sizeof Line, file)){
     trim_line( Line );
     int sizef = sizeof(Line);  
+    printf("processing line: %s\n",Line);
     lineprocess( sizef, Line, estcron );
   } 
 //count use to find out the most used command
 
 }
+
+
+
+
 void argumentcheck(int argcount){
   if (argcount > 4){
     printf("Error, too many arguments\n");
