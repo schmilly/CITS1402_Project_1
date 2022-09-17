@@ -147,3 +147,5 @@ char most_called_command(command){
   else if (estcron == "est"){
       //Code for processing est verson
     }
+https://www.educative.io/answers/splitting-a-string-using-strtok-in-c
+

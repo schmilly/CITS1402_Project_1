@@ -112,22 +112,19 @@ int monthcalcday(int monthNum){
 
 
 
-int timevalue(int *pointers, char *line){
-  int pointer = *pointers;
-  do{
-  if ((line[pointer]) == ' ' ){
-    pointer++;*pointers++;
-  }
-  } while((line[pointer])==' '); //Every time I try and fix this to be better it breaks so idk
-
+int timevalue(char *line){\
+  int pointer = 0;
   if ((line[pointer]) == '*'){
     return -1;
   }
-  printf("%c\n",line[pointer]);
+  if ((line[pointer]) == '0'){
+    return 0;
+  }
+  printf("%s\n",line);
   int value = (int) (line[pointer]);
   value = value - 48; //This is dumb but no of the char -> String conversion would work
   if (line[pointer+1]!=' '){
-      pointer++;*pointers++;
+      pointer++;
       value = value * 10;
       value = value + (line[pointer]-48);
      }
@@ -140,18 +137,12 @@ void lineprocess(int Line, char *line,char *estcron){
   int pointer = 0;
   char linepasser[30]; 
   strcpy(linepasser,line);
-  int minuteval = timevalue(&pointer,linepasser);
-  printf("\nminute value %d & pointer value %d\n", minuteval, pointer);
-  int hourteval = timevalue(&pointer,linepasser);
-  printf("hour value %d & pointer value %d\n", hourteval, pointer);
-  pointer = pointer + 2;
-  int dayterval = timevalue(&pointer,linepasser);
-  printf("day value %d\n",dayterval);
-  pointer = pointer + 2;
-  int monthterval = timevalue(&pointer,linepasser);
-  printf("month interval %d\n\n", monthterval);
-  pointer = pointer + 2;
-
+  int minuteval = timevalue(strtok(linepasser, " "));
+  printf("\nminute value %d", minuteval);
+  while(linepasser != NULL ) {
+      printf( " %s\n",  linepasser); //printing each token
+  }
+   return 0;
 
 
 
