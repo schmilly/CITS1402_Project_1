@@ -38,15 +38,15 @@ struct commands {
 
 struct commands tasks[99]; ;//array of strucutes give us over 100 commands to look at
 // Yonked from FileIO lecture (very useful thanks)
-void trim_line(char line[0])
+void trim_line(char fline[0])
 {
     int i = 0;
 //  LOOP UNTIL WE REACH THE END OF line
-    while(line[i] != '\0') {
+    while(fline[i] != '\0') {
 
 //  CHECK FOR CARRIAGE-RETURN OR NEWLINE
-        if( line[i] == '\r' || line[i] == '\n' ) {
-            line[i] = '\0'; // overwrite with nul-byte
+        if( fline[i] == '\r' || fline[i] == '\n' ) {
+            fline[i] = '\0'; // overwrite with nul-byte
             break;          // leave the loop early
         }
         i = i+1;            // iterate through character array
@@ -103,52 +103,49 @@ int monthcalcday(int monthNum){
 
 
 
-int timevalue(char *line){
-  if (line[0] == '*'){
+int timevalue(char *text){
+  if (text[0] == '*'){
     return -1;
   }
-  if (isdigit(line[0])==1){
-  int value = atoi(line);
+  if (isdigit(text[0])==1){
+  int value = atoi(text);
   return value;
   }
   else{
-      int value = weekcalc(line);
+      int value = weekcalc(text);
       return value;
     } 
 }
-                                                        //1=loc, 0=minutes
+
 int estprocess(char *efile, char *name){
-  FILE *file = fopen(efile, "r");
-  char Line[100];
-  int structnum = 0;
-  while ( fgets(Line, sizeof Line, file)){
-    trim_line( Line ); if (Line[0]!='#'){
-      //Skip line if it starts with a hash 
-      char *currentword = strtok(Line, " ");
+  FILE *filerz = fopen(efile, "r");
+  char linez[100];
+  //while ( fgets(linez, 100, filerz)){
+    trim_line( linez ); if (linez[0]!='#'){
+  ///Skip line if it starts with a hash 
+      char *currentword = strtok(linez, " ");
       while (strcmp(currentword, name)==0){
         char *token = strtok(NULL, " ");
         int minutes = atoi(token);
       return minutes; 
-      }
+     // }
 //return minute if it's looking for that    counter++;          
-      structnum++;
-    
     }  
   }
   //File read loop
-
 }
+//1=loc, 0=minutes
 
 
 
-struct commands cronprocess( char line[], char *estfile){
+
+struct commands cronprocess( char *line, char *estfile){
  //Line is a comment, so exit the function as no data can be parsed of use 
   int current = 0;
   char linepasser[30]; 
   strcpy(linepasser,line);
    // Extract the first token
   char *token;
-  printf("%s",line);
    token = strtok(linepasser, " ");
    // loop through the string to extract all other token
   int minuteval;
@@ -183,9 +180,7 @@ struct commands cronprocess( char line[], char *estfile){
       current++;
       }
     int timetakes = -1;
-    char *taker;
-    strcpy(taker,name);
-    timetakes = estprocess(estfile,taker);
+    timetakes = estprocess(estfile,name);
     struct commands var = {
     .processname = name, 
     .minutenum = minuteval, 
@@ -217,19 +212,19 @@ struct commands *reading_file(char *filename, char *estname) {
   char Line[1000]; 
   int structnum = 0;
   //File read loop
-  while ( fgets(Line, sizeof Line, file) != NULL){
-        trim_line( Line );    
-        printf("outside cronporc: %s\n",Line);
+  while (fgets(Line, 150, file) != NULL){
+        trim_line( Line );           
         if (Line[0]!='#'){ //Skip line if it starts with a hash
         int sizef = sizeof(Line);
         tasks[structnum] = cronprocess( Line, estname );
         printf ("Process found! %s, assigned to array number %d,with values %d, %d, %d, %d, %d, %d, %d\n",
               tasks[structnum].processname, structnum, tasks[structnum].minutenum, tasks[structnum].hournum, tasks[structnum].daynum, tasks[structnum].monthnum, tasks[structnum].weeknum, tasks[structnum].calls, tasks[structnum].timetakes);
       structnum++;
+      printf("end of while: %s\n",Line);
     }
+ 
 }
-
-//count use to find out the most used command
+ fclose(file);
 }
 
 void argumentcheck(int argcount){

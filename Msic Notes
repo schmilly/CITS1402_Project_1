@@ -149,3 +149,21 @@ char most_called_command(command){
     }
 https://www.educative.io/answers/splitting-a-string-using-strtok-in-c
 
+
+int estprocess(char *efile, char *name){
+  FILE *filerz = fopen(efile, "r");
+  char linez[100];
+  //while ( fgets(linez, 100, filerz)){
+    trim_line( linez ); if (linez[0]!='#'){
+  ///Skip line if it starts with a hash 
+      char *currentword = strtok(linez, " ");
+      while (strcmp(currentword, name)==0){
+        char *token = strtok(NULL, " ");
+        int minutes = atoi(token);
+      return minutes; 
+     // }
+//return minute if it's looking for that    counter++;          
+    }  
+  }
+  //File read loop
+}
