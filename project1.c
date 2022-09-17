@@ -11,6 +11,11 @@
 // Student1: 23086983 WILLIAM VAN DEN WALL BAKE
 // Student2: 22902133 JIOW JOSHUA
 
+// This codes a mess and will be handed in late but Josh decided to just stop responding to my messages
+// and left me with some of the worst code I have ever seen so you know, fun
+// I am just trying to get to the end at this point how the code looks doesn't matter to me anymore
+// Im sorry - Will ;_;
+
 
 // TOREMOVE == Marking lines for debugging
 // TODO == Does this need to be explained?
@@ -20,35 +25,24 @@
 #define len 1000
 
 //Initalise of process 
-struct {
+struct commands {
   char *processname;
+  int minutenum;
+  int hournum;
+  int daynum;
   int monthnum;
   int weeknum;
-  int daynum;
-  int hournum;
-  int minutenum;
   int calls;
-} ignore = {
-  "ignoretestcase",
-  30,
-  144,
-  144,
-  144,
-  144,
-  144
-
+  int timetakes;
 };
 
+struct commands tasks[99]; ;//array of strucutes give us over 100 commands to look at
 // Yonked from FileIO lecture (very useful thanks)
 void trim_line(char line[0])
 {
     int i = 0;
 //  LOOP UNTIL WE REACH THE END OF line
     while(line[i] != '\0') {
-//        if( line[i] == ' ') { 
-//    }
-// TODO Remove spaces, would help but we simply do not have the time to run around with this stuff
-// Might end up being easier to account for  them and leave them all in
 
 //  CHECK FOR CARRIAGE-RETURN OR NEWLINE
         if( line[i] == '\r' || line[i] == '\n' ) {
@@ -65,18 +59,15 @@ void trim_line(char line[0])
 
 int weekcalc(char *week){
 	int numberweek = 0;
-  printf("First string in array is %c\n",week[0]);
-  printf("isdigit is reutrning %d\n",isdigit(week[0]));
   if ((isdigit(week[0]))==2048){ //Outputted as 2048 everytime it tested for interger, I have no idea why
-    printf("Week is digit\n");
     sscanf(week, "%d", &numberweek);
     return numberweek;
   }
-  printf("Isn't digit!\n");
   if(strcmp(week, "mon")==0){
 				return 0;}
 	else if(strcmp(week, "tue")==0){
-				return 1;}
+				return 1; }
+
 	else if(strcmp(week, "wed")==0){
 				return 2;}
 	else if(strcmp(week, "thu")==0){
@@ -112,65 +103,103 @@ int monthcalcday(int monthNum){
 
 
 
-int timevalue(char *line){\
-  int pointer = 0;
-  if ((line[pointer]) == '*'){
+int timevalue(char *line){
+  if (line[0] == '*'){
     return -1;
   }
-  if ((line[pointer]) == '0'){
-    return 0;
-  }
-  printf("%s\n",line);
-  int value = (int) (line[pointer]);
-  value = value - 48; //This is dumb but no of the char -> String conversion would work
-  if (line[pointer+1]!=' '){
-      pointer++;
-      value = value * 10;
-      value = value + (line[pointer]-48);
-     }
+  if (isdigit(line[0])==1){
+  int value = atoi(line);
   return value;
+  }
+  else{
+      int value = weekcalc(line);
+      return value;
+    } 
+}
+                                                        //1=loc, 0=minutes
+int estprocess(char *efile, char *name){
+  FILE *file = fopen(efile, "r");
+  char Line[100];
+  int structnum = 0;
+  while ( fgets(Line, sizeof Line, file)){
+    trim_line( Line ); if (Line[0]!='#'){
+      //Skip line if it starts with a hash 
+      char *currentword = strtok(Line, " ");
+      while (strcmp(currentword, name)==0){
+        char *token = strtok(NULL, " ");
+        int minutes = atoi(token);
+      return minutes; 
+      }
+//return minute if it's looking for that    counter++;          
+      structnum++;
+    
+    }  
+  }
+  //File read loop
+
 }
 
-void lineprocess(int Line, char *line,char *estcron){
-  if (line[0]=='#'){return;} //Line is a comment, so exit the function as no data can be parsed of use 
-  if (estcron=="cron"){
-  int pointer = 0;
+
+
+struct commands cronprocess( char line[], char *estfile){
+ //Line is a comment, so exit the function as no data can be parsed of use 
+  int current = 0;
   char linepasser[30]; 
   strcpy(linepasser,line);
-  int minuteval = timevalue(strtok(linepasser, " "));
-  printf("\nminute value %d", minuteval);
-  while(linepasser != NULL ) {
-      printf( " %s\n",  linepasser); //printing each token
-  }
-   return 0;
-
-
-
-//  char week2[4];
-//  strcpy(week2,"tue");
-//  puts (week2);
-//  int weeknum = weekcalc(week2);
-// printf("days in week numerical value%d\n", weeknum);
-//  int monthDay = monthcalcday(montNum);
-//  printf("Amount of Days in month: %i\n", monthDay);
-//  char week1[4];
-//  strcpy(week1,"sun");
-//  puts (week1);
-//  int weeknum = weekcalc(week1);
-//  printf("days in week numerical value %d\n", weeknum);
-
-
-  //This stuff only useful after we process file.
-  //the mains stuffs
-  }
-  if (estcron=="est"){
-    printf("est file (this still needs to be programmed //todo) \n");
-  }
-}
+   // Extract the first token
+  char *token;
+  printf("%s",line);
+   token = strtok(linepasser, " ");
+   // loop through the string to extract all other token
+  int minuteval;
+  int hourteval; 
+  int monthday; 
+  int month;
+  int weekday;
+  char *name;
+   while( token != NULL ) {
+      printf(" current while pos: %d, current token: %s\n",current,token);
+      switch (current){
+        case 0:
+          minuteval = timevalue(token);
+          break;
+        case 1:
+          hourteval = timevalue(token);
+          break;
+        case 2:
+          monthday = timevalue(token);
+          break;
+        case 3:
+          month = timevalue(token);
+          break;
+        case 4:
+          weekday = timevalue(token);
+          break;
+        case 5:
+          name = token;
+          break;
+      }
+      token = strtok(NULL, " ");
+      current++;
+      }
+    int timetakes = -1;
+    char *taker;
+    strcpy(taker,name);
+    timetakes = estprocess(estfile,taker);
+    struct commands var = {
+    .processname = name, 
+    .minutenum = minuteval, 
+    .hournum = hourteval,
+    .daynum = monthday, 
+    .weeknum = weekday, 
+    .calls = -1, 
+    .timetakes = timetakes};
+    return var; 
+ }
 
 
 //just did some file error and opening stuff. converted it into an array of string
-void reading_file(char *filename, char *estcron) {
+struct commands *reading_file(char *filename, char *estname) {
   // TODO
   printf("Reading file %s\n", filename);
   FILE *file = fopen(filename, "r");
@@ -185,21 +214,23 @@ void reading_file(char *filename, char *estcron) {
   // printf("file size is: %s\n",sz);
   // TODO Code doesn't work, fix later if time allows
   
-  
-  char Line[100];
+  char Line[1000]; 
+  int structnum = 0;
   //File read loop
-  while ( fgets(Line, sizeof Line, file)){
-    trim_line( Line );
-    int sizef = sizeof(Line);  
-    printf("processing line: %s\n",Line);
-    lineprocess( sizef, Line, estcron );
-  } 
-//count use to find out the most used command
-
+  while ( fgets(Line, sizeof Line, file) != NULL){
+        trim_line( Line );    
+        printf("outside cronporc: %s\n",Line);
+        if (Line[0]!='#'){ //Skip line if it starts with a hash
+        int sizef = sizeof(Line);
+        tasks[structnum] = cronprocess( Line, estname );
+        printf ("Process found! %s, assigned to array number %d,with values %d, %d, %d, %d, %d, %d, %d\n",
+              tasks[structnum].processname, structnum, tasks[structnum].minutenum, tasks[structnum].hournum, tasks[structnum].daynum, tasks[structnum].monthnum, tasks[structnum].weeknum, tasks[structnum].calls, tasks[structnum].timetakes);
+      structnum++;
+    }
 }
 
-
-
+//count use to find out the most used command
+}
 
 void argumentcheck(int argcount){
   if (argcount > 4){
@@ -248,9 +279,9 @@ int main(int argcount, char *argvalue[]) {
   printf("All files exist; moving on....\n");
   //Reading files specifically
 
-  reading_file(Crontab, "cron");
-  reading_file(estfile, "est");
-  return(0);
+  reading_file(Crontab,estfile);
+  printf("Crontab made array with name of: %s \n", tasks[0].processname);
+  printf("All files read, moving onto simulation!\n");
   exit(EXIT_SUCCESS); 
 }
 
