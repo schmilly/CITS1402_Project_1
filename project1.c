@@ -20,10 +20,6 @@
 // TOREMOVE == Marking lines for debugging
 // TODO == Does this need to be explained?
 
-// defining size of chrachter array for files
-#define Filesize 10000
-#define len 1000
-
 //Initalise of process 
 struct commands {
   char *processname;
@@ -36,7 +32,8 @@ struct commands {
   int timetakes;
 };
 
-struct commands tasks[99]; ;//array of strucutes give us over 100 commands to look at
+struct commands tasks[9999];
+//array of strucutes give us over 100 commands to look at
 // Yonked from FileIO lecture (very useful thanks)
 void trim_line(char fline[0])
 {
@@ -139,23 +136,25 @@ int estprocess(char *efile, char *name){
 
 
 
-struct commands cronprocess( char *line, char *estfile){
+struct commands cronprocess( char *line, char estfile[]){
  //Line is a comment, so exit the function as no data can be parsed of use 
   int current = 0;
-  char linepasser[30]; 
+  char linepasser[50];
   strcpy(linepasser,line);
    // Extract the first token
   char *token;
    token = strtok(linepasser, " ");
    // loop through the string to extract all other token
+ // printf("Current line in cron %s\n",linepasser);
   int minuteval;
   int hourteval; 
   int monthday; 
   int month;
   int weekday;
   char *name;
-   while( token != NULL ) {
-      printf(" current while pos: %d, current token: %s\n",current,token);
+ //printf("current token in cron: %s\n", token);
+
+    while( token != NULL ) {
       switch (current){
         case 0:
           minuteval = timevalue(token);
@@ -174,8 +173,9 @@ struct commands cronprocess( char *line, char *estfile){
           break;
         case 5:
           name = token;
-          break;
+
       }
+      //printf("current token in cron: %s\n", token);
       token = strtok(NULL, " ");
       current++;
       }
@@ -185,47 +185,17 @@ struct commands cronprocess( char *line, char *estfile){
     .processname = name, 
     .minutenum = minuteval, 
     .hournum = hourteval,
-    .daynum = monthday, 
+    .daynum = monthday,
+    .monthnum = month,
     .weeknum = weekday, 
     .calls = -1, 
     .timetakes = timetakes};
+  // printf("do we get here? in CRON\n");
     return var; 
  }
 
 
 //just did some file error and opening stuff. converted it into an array of string
-struct commands *reading_file(char *filename, char *estname) {
-  // TODO
-  printf("Reading file %s\n", filename);
-  FILE *file = fopen(filename, "r");
-  if (file == NULL) {
-    printf("cannot open %s\n", filename);
-    exit(EXIT_FAILURE);
-  }
-
-  printf("File sucesfully opened \n");
-  // fseek(file, 0L, SEEK_END);
-  // int sz = ftell(*file);
-  // printf("file size is: %s\n",sz);
-  // TODO Code doesn't work, fix later if time allows
-  
-  char Line[1000]; 
-  int structnum = 0;
-  //File read loop
-  while (fgets(Line, 150, file) != NULL){
-        trim_line( Line );           
-        if (Line[0]!='#'){ //Skip line if it starts with a hash
-        int sizef = sizeof(Line);
-        tasks[structnum] = cronprocess( Line, estname );
-        printf ("Process found! %s, assigned to array number %d,with values %d, %d, %d, %d, %d, %d, %d\n",
-              tasks[structnum].processname, structnum, tasks[structnum].minutenum, tasks[structnum].hournum, tasks[structnum].daynum, tasks[structnum].monthnum, tasks[structnum].weeknum, tasks[structnum].calls, tasks[structnum].timetakes);
-      structnum++;
-      printf("end of while: %s\n",Line);
-    }
- 
-}
- fclose(file);
-}
 
 void argumentcheck(int argcount){
   if (argcount > 4){
@@ -274,10 +244,33 @@ int main(int argcount, char *argvalue[]) {
   printf("All files exist; moving on....\n");
   //Reading files specifically
 
-  reading_file(Crontab,estfile);
-  printf("Crontab made array with name of: %s \n", tasks[0].processname);
+
+  printf("Reading files %s, %s\n", Crontab, estfile);
+  FILE *file = fopen(Crontab, "r");
+  if (file == NULL) {
+    printf("cannot open %s\n", Crontab);
+    exit(EXIT_FAILURE);
+  }
+
+
+  char Line[90];
+  int structnum = 0;
+  //File read loop
+  while (fgets(Line, 90, file)){
+   // printf("current line: %s\n", Line);
+        trim_line( Line );          
+        if (Line[0]!='#'){ //Skip line if it starts with a hash
+
+
+        tasks[structnum] = cronprocess( Line, estfile );
+        printf("so the name becomes this somehow??: %s\n",tasks[structnum].processname);
+        structnum++;
+
+      }
+  }
   printf("All files read, moving onto simulation!\n");
-  exit(EXIT_SUCCESS); 
+
+    exit(EXIT_SUCCESS); 
 }
 
 
