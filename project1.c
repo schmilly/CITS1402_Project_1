@@ -91,7 +91,7 @@ int monthcalcday(int monthNum){
 		}
 	else if(monthNum == 1){
 		  return 28;
-		}
+	}
 		else if(monthNum == 3 || monthNum == 5 || monthNum == 8 || monthNum == 10){
 			return 30;
 		}
@@ -192,9 +192,14 @@ struct commands cronprocess( char *line, char *estfile){
     return var; 
  }
 
+void simu
+
+
+
 
 //just did some file error and opening stuff. converted it into an array of string
-struct commands *reading_file(char *filename, char *estname) {
+//task is a parameter to the function
+int reading_file(char *filename, char *estname, struct commands *tasks) {
   // TODO
   printf("Reading file %s\n", filename);
   FILE *file = fopen(filename, "r");
@@ -225,6 +230,7 @@ struct commands *reading_file(char *filename, char *estname) {
  
 }
  fclose(file);
+ return structnum;
 }
 
 void argumentcheck(int argcount){
@@ -238,9 +244,6 @@ void argumentcheck(int argcount){
   }
 }
 
-//calculate the most called command
-//just did ladder, required less lines
-//most likely make it its own function
 
 void error_check(char *filename) {
   // opening file of name passed via parameter of filename
@@ -251,6 +254,8 @@ void error_check(char *filename) {
     exit(EXIT_FAILURE);
   }
   printf("File Found!\n");
+
+  close(file);
   //TODO fix this so it doesn't core dump or seg faults
   //every time it trys to read a file that doesn't exist
 }
@@ -274,9 +279,18 @@ int main(int argcount, char *argvalue[]) {
   printf("All files exist; moving on....\n");
   //Reading files specifically
 
+  //tasks and num tasks here to go to reading file
+  struct commands tasks[20];
+  int numTasks = reading_file(Crontab, estfile, tasks);
+
   reading_file(Crontab,estfile);
   printf("Crontab made array with name of: %s \n", tasks[0].processname);
   printf("All files read, moving onto simulation!\n");
+
+  //to loop through tasks
+  //for(int i = 0; i < numTasks; i++){
+  //	printf("\t! %s\n", tasks[i].processname);
+  //}
   exit(EXIT_SUCCESS); 
 }
 
